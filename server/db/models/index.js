@@ -5,7 +5,7 @@ const Clothes = require('./clothes')
 Clothes.belongsTo(User)
 User.hasMany(Clothes)
 
-Clothes.belongsToMany(GarbGuess)
+Clothes.belongsToMany(GarbGuess, {through: 'wearable'})
 GarbGuess.hasMany(Clothes)
 
 module.exports = {
