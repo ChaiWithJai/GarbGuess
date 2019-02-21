@@ -3,6 +3,9 @@ const db = require('../db')
 const axios = require('axios')
 
 const Clothes = db.define('clothes', {
+  name: {
+    type: Sequelize.STRING
+  },
   clothingType: {
     type: Sequelize.STRING
   },
