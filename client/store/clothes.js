@@ -2,6 +2,7 @@ import axios from 'axios'
 
 //type
 const GOT_CLOTHES = 'GOT_CLOTHES'
+const GOT_CLOTH = 'GOT_CLOTH'
 
 const initialState = {
   clothes: [],
@@ -12,6 +13,11 @@ const initialState = {
 const gotClothes = allClothes => ({
   type: GOT_CLOTHES,
   allClothes
+})
+
+const gotCloth = cloth => ({
+  type: GOT_CLOTH,
+  cloth
 })
 
 //thunk middleware
@@ -27,6 +33,22 @@ export const getAllClothes = userId => async dispatch => {
   }
 }
 
+export const getCloth = (cloth, userId) => {
+  return async dispatch => {
+    try {
+      const {data: clothObj} = await axios.post(
+        `/api/users/${userId}/clothes`,
+        {
+          cloth
+        }
+      )
+      dispatch(gotCloth(clothObj))
+    } catch (err) {
+      console.error('Issue with posting your cloth', err.message)
+    }
+  }
+}
+
 //reducer
 
 export default function(state = initialState, action) {
@@ -35,6 +57,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         clothes: action.allClothes
+      }
+    case GOT_CLOTH:
+      return {
+        ...state,
+        singleCloth: action.cloth
       }
     default:
       return state
