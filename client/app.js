@@ -8,6 +8,7 @@ const App = () => {
     <div>
       <Navbar />
       <Routes />
+      <p>Testing to say hi and something else</p>
     </div>
   )
 }
