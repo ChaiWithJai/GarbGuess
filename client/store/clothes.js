@@ -10,15 +10,18 @@ const initialState = {
 
 //action creator
 const gotClothes = allClothes => ({
-  GOT_CLOTHES,
+  type: GOT_CLOTHES,
   allClothes
 })
 
 //thunk middleware
 export const getAllClothes = userId => async dispatch => {
   try {
-    const {data: allClothes} = await axios.get(`/api/${userId}/clothes`)
-    dispatch(gotClothes(allClothes))
+    const {data: clothesFromThunk} = await axios.get(
+      `/api/users/${userId}/clothes`
+    )
+    console.log('allClothes', clothesFromThunk)
+    dispatch(gotClothes(clothesFromThunk))
   } catch (err) {
     console.error(err)
   }
@@ -31,7 +34,7 @@ export default function(state = initialState, action) {
     case GOT_CLOTHES:
       return {
         ...state,
-        clothes: action.clothes
+        clothes: action.allClothes
       }
     default:
       return state
