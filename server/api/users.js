@@ -2,6 +2,24 @@ const router = require('express').Router()
 const {User, Clothes, GarbGuess} = require('../db/models')
 module.exports = router
 
+router.post('/:userId/clothes', async (req, res, next) => {
+  try {
+    const addCloth = await Clothes.findOrCreate({
+      where: {
+        userId: req.params.userId,
+        name: req.body.name,
+        clothingType: req.body.clothingType,
+        color: req.body.color,
+        weight: req.body.weight,
+        bodyPart: req.body.bodyPart
+      }
+    })
+    res.send(addCloth)
+  } catch {
+    next(err)
+  }
+})
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -18,10 +36,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId/clothes', async (req, res, next) => {
   try {
-    const findById = await User.findById(req.params.userId)
     const getClothes = await Clothes.findAll({
       where: {
-        userId: findById
+        userId: req.params.userId
       }
     })
     res.send(getClothes)
