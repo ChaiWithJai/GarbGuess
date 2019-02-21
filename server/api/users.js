@@ -20,6 +20,27 @@ router.post('/:userId/clothes', async (req, res, next) => {
   }
 })
 
+router.post('/:userId/clothes/:clothId', async (req, res, next) => {
+  try {
+    const findCloth = await Clothes.findOne({
+      where: {
+        id: req.params.clothId,
+        userId: req.params.userId
+      }
+    })
+    const updatedCloth = await findCloth.update({
+      name: req.params.name,
+      clothingType: req.body.clothingType,
+      color: req.body.color,
+      weight: req.body.weight,
+      bodyPart: req.body.bodyPart
+    })
+    res.send(updatedCloth)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
