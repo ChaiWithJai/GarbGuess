@@ -7,17 +7,17 @@ router.post('/:userId/clothes', async (req, res, next) => {
     const addCloth = await Clothes.findOrCreate({
       where: {
         userId: req.params.userId,
-        name: req.body.name
-        // clothingType: req.body.clothingType,
-        // color: req.body.color,
-        // weight: req.body.weight,
-        // bodyPart: req.body.bodyPart
+        name: req.body.name,
+        clothingType: req.body.clothingType,
+        color: req.body.color,
+        weight: req.body.weight,
+        bodyPart: req.body.bodyPart
       }
     })
     console.log('Cloth to add', addCloth[0])
     res.send(addCloth[0])
   } catch {
-    next(err)
+    next(err.message)
   }
 })
 

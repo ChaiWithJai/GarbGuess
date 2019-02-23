@@ -8,7 +8,11 @@ class AddClothes extends Component {
     super(props)
     this.state = {
       cloth: {
-        name: ''
+        name: '',
+        clothingType: '',
+        color: '',
+        weight: '',
+        bodyPart: ''
       }
     }
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -19,9 +23,11 @@ class AddClothes extends Component {
     this.setState({cloth: {}})
   }
   handleChange = evt => {
+    console.log('evt', evt.target.name)
     evt.preventDefault()
     let newCloth = {...this.state.cloth}
-    newCloth.name = evt.target.value
+    let name = evt.target.name
+    newCloth[name] = evt.target.value
     this.setState({cloth: newCloth})
   }
   render() {
@@ -32,7 +38,32 @@ class AddClothes extends Component {
             Enter a clothing item:
             <input
               type="text"
+              name="name"
               value={this.state.cloth.name || ''}
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              name="clothingType"
+              value={this.state.cloth.clothingType || ''}
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              name="color"
+              value={this.state.cloth.color || ''}
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              name="weight"
+              value={this.state.cloth.weight || ''}
+              onChange={this.handleChange}
+            />
+            <input
+              type="text"
+              name="bodyPart"
+              value={this.state.cloth.bodyPart || ''}
               onChange={this.handleChange}
             />
           </label>
