@@ -21,7 +21,7 @@ router.post('/:userId/clothes', async (req, res, next) => {
   }
 })
 
-router.post('/:userId/clothes/:clothId', async (req, res, next) => {
+router.put('/:userId/clothes/:clothId', async (req, res, next) => {
   try {
     const findCloth = await Clothes.findOne({
       where: {
@@ -30,7 +30,7 @@ router.post('/:userId/clothes/:clothId', async (req, res, next) => {
       }
     })
     const updatedCloth = await findCloth.update({
-      name: req.params.name,
+      name: req.body.name,
       clothingType: req.body.clothingType,
       color: req.body.color,
       weight: req.body.weight,
