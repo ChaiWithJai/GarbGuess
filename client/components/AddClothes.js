@@ -54,18 +54,25 @@ class AddClothes extends Component {
               value={this.state.cloth.color || ''}
               onChange={this.handleChange}
             />
-            <input
-              type="text"
+            <select
               name="weight"
-              value={this.state.cloth.weight || ''}
+              value={this.state.cloth.weight}
               onChange={this.handleChange}
-            />
-            <input
-              type="text"
+            >
+              <option value="light">Light</option>
+              <option value="medium">Medium</option>
+              <option value="heavy">Heavy</option>
+            </select>
+            <select
               name="bodyPart"
-              value={this.state.cloth.bodyPart || ''}
+              value={this.state.cloth.bodyPart}
               onChange={this.handleChange}
-            />
+            >
+              <option value="head">Head</option>
+              <option value="body">Body</option>
+              <option value="legs">Legs</option>
+              <option value="feet">Feet</option>
+            </select>
           </label>
           <button type="submit" onClick={this.handleSubmit}>
             Submit
