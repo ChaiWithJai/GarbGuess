@@ -34,14 +34,15 @@ export const getAllClothes = userId => async dispatch => {
 }
 
 export const getCloth = (cloth, userId) => {
+  console.log('is cloth being sent?', cloth)
+
   return async dispatch => {
     try {
       const {data: clothObj} = await axios.post(
         `/api/users/${userId}/clothes`,
-        {
-          cloth
-        }
+        cloth
       )
+      console.log('clothObj sent', clothObj)
       dispatch(gotCloth(clothObj))
     } catch (err) {
       console.error('Issue with posting your cloth', err.message)

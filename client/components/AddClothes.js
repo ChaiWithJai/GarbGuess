@@ -32,7 +32,7 @@ class AddClothes extends Component {
             Enter a clothing item:
             <input
               type="text"
-              value={this.state.cloth.name}
+              value={this.state.cloth.name || ''}
               onChange={this.handleChange}
             />
           </label>

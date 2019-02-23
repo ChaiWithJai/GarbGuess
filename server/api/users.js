@@ -14,7 +14,8 @@ router.post('/:userId/clothes', async (req, res, next) => {
         // bodyPart: req.body.bodyPart
       }
     })
-    res.send(addCloth)
+    console.log('Cloth to add', addCloth[0])
+    res.send(addCloth[0])
   } catch {
     next(err)
   }
