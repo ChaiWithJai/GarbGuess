@@ -14,7 +14,6 @@ router.post('/:userId/clothes', async (req, res, next) => {
         bodyPart: req.body.bodyPart
       }
     })
-    console.log('Cloth to add', addCloth[0])
     res.send(addCloth[0])
   } catch {
     next(err.message)
@@ -22,6 +21,7 @@ router.post('/:userId/clothes', async (req, res, next) => {
 })
 
 router.put('/:userId/clothes/:clothId', async (req, res, next) => {
+  console.log('route hit')
   try {
     const findCloth = await Clothes.findOne({
       where: {
@@ -29,6 +29,7 @@ router.put('/:userId/clothes/:clothId', async (req, res, next) => {
         userId: req.params.userId
       }
     })
+    console.log('cloth found', findCloth)
     const updatedCloth = await findCloth.update({
       name: req.body.name,
       clothingType: req.body.clothingType,
@@ -36,8 +37,10 @@ router.put('/:userId/clothes/:clothId', async (req, res, next) => {
       weight: req.body.weight,
       bodyPart: req.body.bodyPart
     })
+    console.log('updated??', updatedCloth)
     res.send(updatedCloth)
   } catch (err) {
+    console.log('error occured')
     next(err)
   }
 })

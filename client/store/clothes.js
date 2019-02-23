@@ -3,6 +3,7 @@ import axios from 'axios'
 //type
 const GOT_CLOTHES = 'GOT_CLOTHES'
 const GOT_CLOTH = 'GOT_CLOTH'
+const UPDATE_CLOTH = 'UPDATE_CLOTH'
 
 const initialState = {
   clothes: [],
@@ -17,6 +18,11 @@ const gotClothes = allClothes => ({
 
 const gotCloth = cloth => ({
   type: GOT_CLOTH,
+  cloth
+})
+
+const updateCloth = cloth => ({
+  type: UPDATE_CLOTH,
   cloth
 })
 
@@ -46,6 +52,20 @@ export const getCloth = (cloth, userId) => {
   }
 }
 
+export const getUpdatedCloth = (cloth, clothId, userId) => {
+  return async dispatch => {
+    try {
+      const {data: clothObj} = await axios.put(
+        `/api/users/${userId}/clothes/${clothId}`,
+        cloth
+      )
+      dispatch(updateCloth(clothObj))
+    } catch (err) {
+      console.log('Issue updating this clothing item', err.message)
+    }
+  }
+}
+
 //reducer
 
 export default function(state = initialState, action) {
@@ -56,6 +76,11 @@ export default function(state = initialState, action) {
         clothes: action.allClothes
       }
     case GOT_CLOTH:
+      return {
+        ...state,
+        singleCloth: action.cloth
+      }
+    case UPDATE_CLOTH:
       return {
         ...state,
         singleCloth: action.cloth
